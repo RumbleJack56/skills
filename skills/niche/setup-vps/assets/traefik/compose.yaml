@@ -1,0 +1,43 @@
+# /srv/services/traefik/compose.yaml, run by the rootless `deploy` user with `podman compose up -d`.
+services:
+  traefik:
+    image: docker.io/library/traefik:v3
+    container_name: traefik
+    restart: always   # not unless-stopped: podman-restart.service only restarts "always" on older Podman
+
+    command:
+      - --providers.docker=true
+      - --providers.docker.endpoint=unix:///var/run/docker.sock
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=proxy
+
+      - --providers.file.directory=/etc/traefik/dynamic
+      - --providers.file.watch=true
+
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+
+      - --certificatesresolvers.le.acme.email=${ACME_EMAIL}
+      - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.le.acme.httpchallenge.entrypoint=web
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - ${PODMAN_SOCK}:/var/run/docker.sock
+      - ./dynamic:/etc/traefik/dynamic:ro
+      - ./letsencrypt:/letsencrypt
+
+    # Needed on SELinux hosts to read the Podman socket; harmless elsewhere.
+    security_opt:
+      - label=disable
+
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

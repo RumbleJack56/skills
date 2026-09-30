@@ -1,0 +1,12 @@
+{
+  "name": "rumblejack-skills",
+  "description": "RumbleJack56's agent skills, organized into buckets by use case.",
+  "version": "0.1.0",
+  "author": {
+    "name": "RumbleJack56"
+  },
+  "skills": [
+    "./skills/general-productivity/adhd",
+    "./skills/niche/setup-vps"
+  ]
+}

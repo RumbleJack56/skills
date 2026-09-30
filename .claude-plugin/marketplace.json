@@ -1,0 +1,18 @@
+{
+  "name": "rumblejack-skills",
+  "owner": {
+    "name": "RumbleJack56"
+  },
+  "metadata": {
+    "description": "RumbleJack56's agent skills, organized into buckets by use case.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "rumblejack-skills",
+      "source": "./",
+      "description": "RumbleJack56's agent skills, organized into buckets by use case.",
+      "version": "0.1.0"
+    }
+  ]
+}

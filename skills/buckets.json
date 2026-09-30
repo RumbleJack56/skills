@@ -1,0 +1,14 @@
+{
+  "general-productivity": {
+    "description": "Personal organization and planning: capture, prioritize and track what to do without losing focus",
+    "shipped": true
+  },
+  "in-progress": {
+    "description": "Beta skills still being tested. Not shipped in the Claude Code plugin; install individually with npx skills",
+    "shipped": false
+  },
+  "niche": {
+    "description": "Specialized, opinionated setups for specific tools and environments",
+    "shipped": true
+  }
+}
