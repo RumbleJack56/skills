@@ -12,7 +12,7 @@
       "name": "rumblejack-skills",
       "source": "./",
       "description": "RumbleJack56's agent skills, organized into buckets by use case.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     }
   ]
 }

@@ -1,11 +1,14 @@
 {
   "name": "rumblejack-skills",
   "description": "RumbleJack56's agent skills, organized into buckets by use case.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "RumbleJack56"
   },
   "skills": [
+    "./skills/app-development/client-state-setup",
+    "./skills/app-development/ota-playbook",
+    "./skills/app-development/server-api-setup",
     "./skills/general-productivity/adhd",
     "./skills/niche/setup-vps"
   ]

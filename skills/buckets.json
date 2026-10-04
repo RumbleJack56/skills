@@ -10,5 +10,9 @@
   "niche": {
     "description": "Specialized, opinionated setups for specific tools and environments",
     "shipped": true
+  },
+  "app-development": {
+    "description": "React Native app development with Expo: server state, client state, and over-the-air release playbooks",
+    "shipped": true
   }
 }
