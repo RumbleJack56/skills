@@ -5,7 +5,7 @@ A short guide to daily use. Design background: [README.md](README.md).
 ## 1. Install and set up (once)
 
 1. Install the skills.
-   - Claude Code plugin: `/plugin marketplace add RumbleJack56/skills` then `/plugin install rumblejack-skills@rumblejack-skills`.
+   - Claude Code plugin: `/plugin marketplace add RumbleJack56/skills` then `/plugin install general-productivity@rumblejack-skills`.
    - Or `npx skills add RumbleJack56/skills --skill brain-setup --skill brain-notes --skill capture ...` (install the whole `general-productivity` bucket).
 2. You need Node 18+, `rg` (ripgrep), GNU `sed` and `git`. Obsidian is optional.
 3. Ask Claude: "set up my second brain" (or `/brain-setup`). It installs the `brain` command, creates the folder,
