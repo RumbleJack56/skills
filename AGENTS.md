@@ -86,7 +86,6 @@ Tests: `node --test tests/engine/*.test.mjs`. Usage and design notes live in `do
   project). They organize and **never do the user's tasks**. Every reply is short, shows at most 3 priorities
   and ends with one `**Next:**` action. Core loop: `capture`, `route`, `plan`, `daily-review`. Also
   `brain-setup`, `brain-notes` (conventions), `task-graph`, `overwhelm`, `routines`, `reminders`, `backlog`.
-  The retired `adhd` skill's lessons are in `docs/second-brain/adhd-lessons.md`.
 - **`niche/setup-vps`**: sets up a VPS over SSH as root. It generates an idempotent per-step script in
   `.scratchpad/setup-vps/<host>/` and runs it only on request, one confirmed step at a time. It adapts to
   the OS. It covers users and sudo, the `deploy` service user (rootless Podman for all containers), the
