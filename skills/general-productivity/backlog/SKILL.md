@@ -5,7 +5,7 @@ description: "Manage tasks that were planned for today but not done, and the ove
 
 # Backlog
 
-The backlog is every open task not on today's plan, plus tasks planned for today and not done. Conventions: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`).
+The backlog is every open task not on today's plan, plus tasks planned for today and not done. Conventions: `brain-notes`. Engine: the `brain` command (installed by `brain-setup`).
 
 ## Rules the engine applies
 

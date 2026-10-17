@@ -1,6 +1,6 @@
 {
   "general-productivity": {
-    "description": "Second brain for Claude Code and Obsidian (FLAP method): capture, route, plan the day, projects, routines, reminders, knowledge notes. Needs the Claude Code plugin (it ships the brain engine)",
+    "description": "Second brain for Claude Code and Obsidian (FLAP method): capture, route, plan the day, projects, routines, reminders, knowledge notes. Works from the plugin or npx skills; brain-setup installs the engine",
     "shipped": true
   },
   "in-progress": {

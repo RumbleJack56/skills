@@ -395,18 +395,45 @@ export function assignIds(ctx, file, tasks, prefix = "t") {
 
 // ---------- Claude Code config inside the brain ----------
 import { fileURLToPath } from "node:url";
+import os from "node:os";
 const ENGINE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "brain");
-const PLUGIN_ROOT = path.resolve(path.dirname(ENGINE), "..");
-const READ_ONLY = ["projects", "brief", "find", "get", "grep", "plan", "due", "lint", "backlog", "weekly", "restart", "recover", "now show", "routines list", "remind list"];
-const WRITING = ["dump", "remind add", "route", "snooze-note", "task", "done", "snooze", "undo", "now add", "now add-step", "flush", "wrap", "morning", "today win", "routines", "project new", "reindex"];
+const ENGINE_DIR = path.dirname(ENGINE);
+const READ_ONLY = ["projects", "brief", "find", "get", "grep", "plan", "due", "lint", "backlog", "weekly", "restart", "recover", "now show", "routines list", "remind list", "task find", "draft list", "help"];
+const WRITING = ["dump", "remind add", "route", "snooze-note", "task", "done", "snooze", "undo", "now add", "now add-step", "flush", "wrap", "morning", "today win", "routines", "project", "reindex", "note new", "draft", "consume"];
+const commandsDir = () => [path.join(ENGINE_DIR, "commands"), path.join(ENGINE_DIR, "..", "assets", "commands")].find((d) => fs.existsSync(d));
+
+// Copy the engine and the command files to a stable home and link ~/.local/bin/brain.
+export function installEngine() {
+  const home = process.env.BRAIN_HOME || path.join(os.homedir(), ".local", "share", "rumblejack-brain");
+  const binDir = process.env.BRAIN_BIN_DIR || path.join(os.homedir(), ".local", "bin");
+  if (path.resolve(home) === ENGINE_DIR) return { home, link: path.join(binDir, "brain"), same: true };
+  const stage = `${home}.new-${process.pid}`;
+  fs.rmSync(stage, { recursive: true, force: true });
+  fs.mkdirSync(stage, { recursive: true });
+  fs.copyFileSync(ENGINE, path.join(stage, "brain"));
+  fs.chmodSync(path.join(stage, "brain"), 0o755);
+  fs.cpSync(path.join(ENGINE_DIR, "lib"), path.join(stage, "lib"), { recursive: true });
+  const cd = commandsDir();
+  if (cd) fs.cpSync(cd, path.join(stage, "commands"), { recursive: true });
+  const old = `${home}.old-${process.pid}`;
+  if (fs.existsSync(home)) fs.renameSync(home, old);
+  fs.renameSync(stage, home);
+  fs.rmSync(old, { recursive: true, force: true });
+  fs.mkdirSync(binDir, { recursive: true });
+  const link = path.join(binDir, "brain");
+  try { fs.rmSync(link, { force: true }); } catch {}
+  fs.symlinkSync(path.join(home, "brain"), link);
+  const onPath = (process.env.PATH ?? "").split(path.delimiter).includes(binDir);
+  return { home, link, onPath };
+}
 
 // Copies the short slash commands and merges hooks/permissions into <brain>/.claude. Never overwrites a command file.
 export function setupClaude(root, { refresh = false } = {}) {
   const made = [], kept = [];
-  const src = path.join(PLUGIN_ROOT, "skills", "general-productivity", "brain-setup", "assets", "commands");
+  const src = commandsDir();
   const dst = path.join(root, ".claude", "commands");
   fs.mkdirSync(dst, { recursive: true });
-  if (fs.existsSync(src)) {
+  if (src) {
     for (const n of fs.readdirSync(src)) {
       const to = path.join(dst, n);
       if (fs.existsSync(to)) { kept.push(`.claude/commands/${n}`); continue; }
@@ -425,8 +452,8 @@ export function setupClaude(root, { refresh = false } = {}) {
     s.hooks[ev] = [...others, ...hook(cmd)];
   }
   s.permissions = s.permissions ?? {};
-  const rules = [...READ_ONLY, ...WRITING].map((c) => `Bash(${ENGINE} ${c}:*)`);
-  const keep = (s.permissions.allow ?? []).filter((r) => !String(r).startsWith(`Bash(${ENGINE} `));
+  const rules = [...READ_ONLY, ...WRITING].flatMap((c) => [`Bash(${ENGINE} ${c}:*)`, `Bash(brain ${c}:*)`]);
+  const keep = (s.permissions.allow ?? []).filter((r) => !String(r).startsWith(`Bash(${ENGINE} `) && !String(r).startsWith("Bash(brain "));
   s.permissions.allow = [...keep, ...rules];
   atomicWrite(sf, Buffer.from(JSON.stringify(s, null, 2) + "\n"));
   made.push(".claude/settings.json (hooks + permissions)");

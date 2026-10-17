@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { makeBrain, has } from "./helpers.mjs";
-import { parseSchedule, scheduleMatches, now, lastOccurrence, addDays, isDate } from "../../bin/lib/dates.mjs";
+import { parseSchedule, scheduleMatches, now, lastOccurrence, addDays, isDate } from "../../skills/general-productivity/brain-setup/engine/lib/dates.mjs";
 
 test("day boundary: the logical day changes at 04:00", () => {
   for (const [stamp, day] of [["2026-10-17 23:59", "2026-10-17"], ["2026-10-18 00:00", "2026-10-17"], ["2026-10-18 00:30", "2026-10-17"], ["2026-10-18 03:59", "2026-10-17"], ["2026-10-18 04:00", "2026-10-18"], ["2026-10-18 04:01", "2026-10-18"]]) {

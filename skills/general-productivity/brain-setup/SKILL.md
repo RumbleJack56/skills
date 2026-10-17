@@ -5,7 +5,17 @@ description: "Set up the user's second brain: one folder that is an Obsidian vau
 
 # Brain setup
 
-Creates the brain and connects project repos to it. Same style as a careful installer: inspect, show the plan, run one confirmed step at a time. Every step is idempotent. Conventions: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`).
+Creates the brain and connects project repos to it. Same style as a careful installer: inspect, show the plan, run one confirmed step at a time. Every step is idempotent. Conventions: `brain-notes`. Engine: the `brain` command (installed by `brain-setup`).
+
+## 0. Install the engine (once per machine, and after every skill update)
+
+The engine ships inside this skill, in `engine/`. Install it to a stable place outside the vault and the plugin cache:
+
+```bash
+node "${CLAUDE_SKILL_DIR}/engine/brain" install
+```
+
+This copies the engine to `~/.local/share/rumblejack-brain/` and links `~/.local/bin/brain`. If `${CLAUDE_SKILL_DIR}` is empty, use the folder that contains this `SKILL.md`. If `~/.local/bin` is not on the user's `PATH`, say so and give the line to add. Check with `brain help`. This works the same whether the skills came from the Claude Code plugin or from `npx skills`.
 
 ## 1. Preflight (report only)
 

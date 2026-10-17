@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-export const BIN = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../bin/brain");
+export const BIN = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../skills/general-productivity/brain-setup/engine/brain");
 export function tmp() { return fs.mkdtempSync(path.join(os.tmpdir(), "brain-test-")); }
 
 // A brain in a temp dir. b(args...) runs the engine; w(rel, text) writes a file.

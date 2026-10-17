@@ -1,6 +1,6 @@
 # Second brain
 
-Skills in `skills/general-productivity/` plus the engine in `bin/`. This page is the short design record.
+Skills in `skills/general-productivity/`; the engine is in `skills/general-productivity/brain-setup/engine/`. How to use it: [usage.md](usage.md). This page is the short design record.
 
 ## Model
 
@@ -20,9 +20,9 @@ until processed), `atomic`, `project`.
   `CLAUDE.local.md` tells the model to run `brain brief` instead.
 - Isolation is a guideline, not a boundary. There are no deny rules.
 
-## Engine (`bin/brain`)
+## Engine (`brain-setup/engine/`)
 
-Zero-dependency Node 18+. Needs `rg` and GNU `sed`. Deterministic and offline. Every write goes through a lock,
+Zero-dependency Node 18+. Needs `rg` and GNU `sed`. It lives inside the skill so both install routes ship it. `brain install` (run by `brain-setup`) copies it to `~/.local/share/rumblejack-brain/` and links `~/.local/bin/brain`, outside the vault and the plugin cache. Deterministic and offline. Every write goes through a lock,
 an atomic rename and `.brain/journal.jsonl`; `brain undo [n]` reverses a command. Every read prints coverage and
 fails closed: a task line that cannot be read is shown as "needs fixing" and blocks its dependents, never
 dropped and never treated as done.

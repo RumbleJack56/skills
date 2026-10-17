@@ -259,3 +259,19 @@ test("task drop closes a task with [-] and is undoable", () => {
   assert.ok(!has(b.b("plan", "next").out, "Old thing"));
   b.b("undo"); assert.ok(has(b.r("projects/p/tasks.md"), "- [ ] Old thing"));
 });
+test("install copies the engine to a stable home and a fresh brain works from there", () => {
+  const home = path.join(tmp(), "share"), bin = path.join(tmp(), "bin");
+  const env = { ...process.env, BRAIN_HOME: home, BRAIN_BIN_DIR: bin, BRAIN_NOW: "2026-10-17 09:00", BRAIN_TZ: "UTC" };
+  const i = spawnSync("node", [BIN, "install"], { env, encoding: "utf8" });
+  assert.equal(i.status, 0, i.stderr);
+  assert.ok(fs.existsSync(path.join(home, "lib", "main.mjs")) && fs.existsSync(path.join(home, "commands", "next.md")));
+  assert.equal(fs.readlinkSync(path.join(bin, "brain")), path.join(home, "brain"));
+  const root = path.join(tmp(), "b");
+  const r = spawnSync(path.join(bin, "brain"), ["init", root, "--no-git"], { env, encoding: "utf8" });
+  assert.equal(r.status, 0, r.stderr);
+  assert.ok(fs.existsSync(path.join(root, ".claude/commands/next.md")));
+  const s = JSON.parse(fs.readFileSync(path.join(root, ".claude/settings.json"), "utf8"));
+  assert.ok(s.hooks.SessionStart[0].hooks[0].command.startsWith(home), s.hooks.SessionStart[0].hooks[0].command);
+  assert.equal(spawnSync("node", [BIN, "install"], { env, encoding: "utf8" }).status, 0); // re-install replaces cleanly
+  assert.equal(spawnSync(path.join(bin, "brain"), ["install"], { env, encoding: "utf8" }).stdout.trim(), "already installed here");
+});

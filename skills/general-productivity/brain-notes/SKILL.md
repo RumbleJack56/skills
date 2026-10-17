@@ -6,7 +6,7 @@ description: "Conventions of the user's second brain (an Obsidian vault that is 
 # Brain notes
 
 Reference for every other second-brain skill. The brain is a plain-file Obsidian vault in a private git repo. All
-reads and writes go through the engine, `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (written `brain` below). The engine is
+reads and writes go through the engine, the `brain` command (installed by `brain-setup`, normally linked at `~/.local/bin/brain`). The engine is
 deterministic, offline and keeps a journal, so `brain undo` reverses a write.
 
 Skills in this set organize and never do the user's tasks. Replies are short, show at most 3 priorities and end with

@@ -5,7 +5,7 @@ description: "Keep a second-brain project and its code repo in step: write the o
 
 # Project sync
 
-Real project files live in the brain at `projects/<p>/`. A repo reaches them through `.brain/`. Conventions: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`).
+Real project files live in the brain at `projects/<p>/`. A repo reaches them through `.brain/`. Conventions: `brain-notes`. Engine: the `brain` command (installed by `brain-setup`).
 
 ## In a project chat (a repo with `.brain/`)
 

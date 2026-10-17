@@ -6,7 +6,7 @@ description: "Save anything the user wants to remember or do into the second bra
 # Capture
 
 Get the thought out of the user's head and into a file with the least friction. Nothing is lost, nothing is judged.
-Conventions: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`).
+Conventions: `brain-notes`. Engine: the `brain` command (installed by `brain-setup`).
 
 ## Steps
 

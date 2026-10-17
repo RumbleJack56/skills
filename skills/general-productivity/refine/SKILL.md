@@ -5,7 +5,7 @@ description: "Turn the user's fleeting notes into knowledge: literature notes on
 
 # Refine
 
-Claude writes the downstream layers, only from the user's own fleeting notes and dumps. Conventions: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`).
+Claude writes the downstream layers, only from the user's own fleeting notes and dumps. Conventions: `brain-notes`. Engine: the `brain` command (installed by `brain-setup`).
 
 ## Flow (FLAP)
 

@@ -228,14 +228,16 @@ function validate() {
       if (body.split("\n").length > 500) errors.push(`${sw}: SKILL.md is over 500 lines; move material to references/`);
       for (const m of body.matchAll(/\]\((references\/[^)#\s]+|assets\/[^)#\s]+)\)/g))
         if (!fs.existsSync(path.join(path.dirname(s.file), m[1]))) errors.push(`${sw}: broken link ${m[1]}`);
-      if (/\bbin\/brain\b/.test(body) && !fs.existsSync(path.join(ROOT, "bin", "brain"))) errors.push(`${sw}: uses bin/brain but the engine is missing`);
+
       if (seen.has(s.dir)) errors.push(`${sw}: skill name also used in ${seen.get(s.dir)} (names must be unique repo-wide)`);
       seen.set(s.dir, where);
     }
   }
 
-  const engines = ["bin/brain", "bin/lib/main.mjs"].filter((f) => !fs.existsSync(path.join(ROOT, f)));
-  if (fs.existsSync(path.join(ROOT, "bin")) && engines.length) errors.push(`engine incomplete: missing ${engines.join(", ")}`);
+  const eng = "skills/general-productivity/brain-setup/engine";
+  const engines = ["brain", "lib/main.mjs"].filter((f) => !fs.existsSync(path.join(ROOT, eng, f)));
+  if (fs.existsSync(path.join(ROOT, eng)) && engines.length) errors.push(`engine incomplete: missing ${engines.join(", ")}`);
+  if (fs.existsSync(path.join(ROOT, "bin"))) errors.push("bin/ must not exist: the engine ships inside skills/general-productivity/brain-setup/engine so npx skills installs it");
   const copies = [];
   const scan = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) { if (e.name === ".git" || e.name === "node_modules" || e.name === ".scratchpad") continue; const p = path.join(d, e.name); if (e.isDirectory()) scan(p); else if (e.name === "main.mjs" && path.basename(d) === "lib") copies.push(path.relative(ROOT, p)); } };
   scan(ROOT);

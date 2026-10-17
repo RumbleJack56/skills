@@ -5,7 +5,7 @@ description: "Help the user when they are overwhelmed and cannot start: dump eve
 
 # Overwhelm
 
-One small step at a time. Wait for the user between steps. Each message is a few lines. Conventions: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`).
+One small step at a time. Wait for the user between steps. Each message is a few lines. Conventions: `brain-notes`. Engine: the `brain` command (installed by `brain-setup`).
 
 ## Protocol
 

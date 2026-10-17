@@ -5,7 +5,7 @@ description: "Set, list, snooze and clear reminders in the second brain, and tur
 
 # Reminders
 
-A reminder is `[remind:: YYYY-MM-DD HH:MM]` (or date only) on a task line or in `reminders.md`. Conventions: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`).
+A reminder is `[remind:: YYYY-MM-DD HH:MM]` (or date only) on a task line or in `reminders.md`. Conventions: `brain-notes`. Engine: the `brain` command (installed by `brain-setup`).
 
 ## Steps
 

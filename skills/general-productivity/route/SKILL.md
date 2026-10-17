@@ -5,7 +5,7 @@ description: "Sort the second brain's inbox: move fleeting notes into the right 
 
 # Route
 
-Turns the inbox into project tasks, a few at a time. Conventions: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`).
+Turns the inbox into project tasks, a few at a time. Conventions: `brain-notes`. Engine: the `brain` command (installed by `brain-setup`).
 
 ## Steps
 

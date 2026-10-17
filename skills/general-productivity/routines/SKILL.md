@@ -5,7 +5,7 @@ description: "Create and edit the recurring routines of the second brain: daily 
 
 # Routines
 
-A routine is a template in `routines/<slug>.md`. The morning review (`daily-review`) spawns today's instances. Conventions: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`).
+A routine is a template in `routines/<slug>.md`. The morning review (`daily-review`) spawns today's instances. Conventions: `brain-notes`. Engine: the `brain` command (installed by `brain-setup`).
 
 ## Schedule grammar (strict)
 

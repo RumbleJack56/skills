@@ -5,7 +5,7 @@ description: "Add, break down and fix tasks in a second-brain project so the pla
 
 # Task graph
 
-Keeps `projects/<p>/tasks.md` correct and small. Format: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`).
+Keeps `projects/<p>/tasks.md` correct and small. Format: `brain-notes`. Engine: the `brain` command (installed by `brain-setup`).
 
 ## Adding and breaking down
 

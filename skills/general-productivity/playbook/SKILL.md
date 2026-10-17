@@ -5,7 +5,7 @@ description: "Create, find and run the user's playbooks, methods and guides: rep
 
 # Playbook
 
-A playbook is a process the user can repeat. It is a kb note with `type: playbook | method | guide`. Conventions: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`).
+A playbook is a process the user can repeat. It is a kb note with `type: playbook | method | guide`. Conventions: `brain-notes`. Engine: the `brain` command (installed by `brain-setup`).
 
 | Type | Use for |
 |---|---|

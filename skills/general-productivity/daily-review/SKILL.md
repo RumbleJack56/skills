@@ -5,7 +5,7 @@ description: "Run the second brain's day rhythm: the morning review (routines, d
 
 # Daily review
 
-Conventions: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`). Never do the tasks.
+Conventions: `brain-notes`. Engine: the `brain` command (installed by `brain-setup`). Never do the tasks.
 
 ## Morning (`/morning`)
 

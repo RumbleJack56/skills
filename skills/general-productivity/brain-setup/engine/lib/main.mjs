@@ -18,7 +18,7 @@ const HELP = `brain <command>
            done <key#hash> | snooze <key#hash> --until DATE | undo [n] | now add <key#hash> | now add-step <text> | now show
   Day:     morning | wrap | flush | restart | weekly | backlog | today win <text> | routines list|add|item|spawn
   Know:    note new --kind .. --title .. --source .. (stdin) | draft list|confirm|reject | consume <note> | project state|archive
-  Setup:   init <path> | setup-claude (commands, hooks, permissions) | project new <slug> | link <project> <repo> | reindex | hook start|prompt | recover | backup`;
+  Setup:   install | init <path> | setup-claude (commands, hooks, permissions) | project new <slug> | link <project> <repo> | reindex | hook start|prompt | recover | backup`;
 
 const out = (s) => process.stdout.write(s.endsWith("\n") ? s : s + "\n");
 
@@ -28,6 +28,11 @@ export async function main(argv) {
   for (let i = 0; i < argv.length; i++) { if (argv[i] === "--brain") brainOpt.push(argv[++i]); else rest.push(argv[i]); }
   const [cmd, ...args] = rest;
   if (!cmd || cmd === "help" || cmd === "--help") return out(HELP);
+  if (cmd === "install") {
+    const r = core.installEngine();
+    out(r.same ? "already installed here" : `installed to ${r.home}\nlinked ${r.link}${r.onPath === false ? `\nnote: ${path.dirname(r.link)} is not on your PATH. Add: export PATH="${path.dirname(r.link)}:$PATH"` : ""}`);
+    return;
+  }
   if (cmd === "init") {
     const a = parseArgs(args, ["timezone"], ["no-git"]);
     if (!a._[0]) throw new Error("usage: brain init <path>");

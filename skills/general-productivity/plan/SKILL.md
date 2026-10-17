@@ -5,7 +5,7 @@ description: "Choose what the user does next or today from their second-brain ta
 
 # Plan
 
-Pick the work. Never do it. Conventions: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`).
+Pick the work. Never do it. Conventions: `brain-notes`. Engine: the `brain` command (installed by `brain-setup`).
 
 ## Three questions, three commands
 
