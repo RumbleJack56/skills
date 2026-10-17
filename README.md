@@ -9,10 +9,10 @@ files.
 <!-- catalog:start -->
 | Bucket | Use case | Skills | Claude Code plugin |
 |---|---|---|---|
-| [`engineering`](skills/engineering) | Backend and app engineering playbooks: React Native with Expo (server state, client state, over-the-air release) | `client-state-setup`, `ota-playbook`, `server-api-setup` | ✓ `/rumblejack-skills:…` |
-| [`general-productivity`](skills/general-productivity) | Second brain for Claude Code and Obsidian (FLAP method): capture, route, plan the day, projects, routines, reminders, knowledge notes. Works from the plugin or npx skills; brain-setup installs the engine | `backlog`, `brain-notes`, `brain-setup`, `capture`, `daily-review`, `overwhelm`, `plan`, `playbook`, `project-sync`, `refine`, `reminders`, `route`, `routines`, `task-graph` | ✓ `/rumblejack-skills:…` |
+| [`engineering`](skills/engineering) | Backend and app engineering playbooks: React Native with Expo (server state, client state, over-the-air release) | `client-state-setup`, `ota-playbook`, `server-api-setup` | ✓ `/engineering:…` |
+| [`general-productivity`](skills/general-productivity) | Second brain for Claude Code and Obsidian (FLAP method): capture, route, plan the day, projects, routines, reminders, knowledge notes. Works from the plugin or npx skills; brain-setup installs the engine | `backlog`, `brain-notes`, `brain-setup`, `capture`, `daily-review`, `overwhelm`, `plan`, `playbook`, `project-sync`, `refine`, `reminders`, `route`, `routines`, `task-graph` | ✓ `/general-productivity:…` |
 | [`in-progress`](skills/in-progress) | Beta skills still being tested. Not shipped in the Claude Code plugin; install individually with npx skills | _none yet_ | npx only |
-| [`niche`](skills/niche) | Specialized, opinionated setups for specific tools and environments | `setup-vps` | ✓ `/rumblejack-skills:…` |
+| [`niche`](skills/niche) | Specialized, opinionated setups for specific tools and environments | `setup-vps` | ✓ `/niche:…` |
 <!-- catalog:end -->
 
 ## Second brain (`general-productivity`)
@@ -22,30 +22,33 @@ One folder is an Obsidian vault, a Claude Code directory and a private git repo.
 plugin or from `npx skills`: the engine ships inside the `brain-setup` skill. It needs Node 18 or newer,
 `rg` (ripgrep) and GNU `sed`.
 
-After installing, ask Claude to set up your brain (or run `/rumblejack-skills:brain-setup`). Then work from
+After installing, ask Claude to set up your brain (or run `/general-productivity:brain-setup`). Then work from
 the brain folder. Read the [usage guide](docs/second-brain/usage.md).
 
 ## Install
 
 Pick **one** route per machine. If you install both, every skill shows up twice. For the second brain, install the whole `general-productivity` bucket (the skills call each other).
 
-### Claude Code plugin (every shipped bucket)
+### Claude Code plugins (one per bucket)
 
 ```text
 /plugin marketplace add RumbleJack56/skills
-/plugin install rumblejack-skills@rumblejack-skills
+/plugin install general-productivity@rumblejack-skills
+/plugin install engineering@rumblejack-skills
+/plugin install niche@rumblejack-skills
 ```
 
-This installs every bucket marked ✓ above. Beta buckets such as `in-progress` are left out.
+Install only the buckets you want. Skills are invoked as `/<bucket>:<skill>`. Beta buckets such as
+`in-progress` are not in the plugin list.
 
-To enable it for a whole team, put this in the project's `.claude/settings.json`:
+To enable one for a whole team, put this in the project's `.claude/settings.json`:
 
 ```json
 {
   "extraKnownMarketplaces": {
     "rumblejack-skills": { "source": { "source": "github", "repo": "RumbleJack56/skills" } }
   },
-  "enabledPlugins": { "rumblejack-skills@rumblejack-skills": true }
+  "enabledPlugins": { "general-productivity@rumblejack-skills": true }
 }
 ```
 
@@ -76,16 +79,17 @@ You can also call one directly:
 
 | Installed via | Invoke as |
 |---|---|
-| Claude Code plugin | `/rumblejack-skills:<skill>`, e.g. `/rumblejack-skills:adhd` |
-| `npx skills` or manual | `/<skill>`, e.g. `/adhd` |
+| Claude Code plugin | `/<bucket>:<skill>`, e.g. `/general-productivity:plan` |
+| `npx skills` or manual | `/<skill>`, e.g. `/plan` |
 
 Examples:
 
-- **`adhd`**: "I'm overwhelmed, here's everything I need to do: …", "what should I work on next?",
-  "break this task down".
+- **`overwhelm`, `plan`, `capture`** (second brain): "I'm overwhelmed, here's everything I need to do: …",
+  "what should I work on next?", "need to call the dentist".
 - **`setup-vps`**: "set up my new VPS at 203.0.113.10 for alice (sudo) and bob, with Traefik in front".
 
-Skills only read and write three folders in the project they run in:
+The `engineering` and `niche` skills only read and write three folders in the project they run in (the second
+brain works in its own brain folder):
 
 | Folder | Git | Used for |
 |---|---|---|

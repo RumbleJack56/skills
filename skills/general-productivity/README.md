@@ -3,7 +3,7 @@
 
 Second brain for Claude Code and Obsidian (FLAP method): capture, route, plan the day, projects, routines, reminders, knowledge notes. Works from the plugin or npx skills; brain-setup installs the engine
 
-Claude Code: included in the `rumblejack-skills` plugin, so skills are invoked as `/rumblejack-skills:<skill>`.
+Claude Code: install the `general-productivity` plugin (`/plugin install general-productivity@rumblejack-skills`); skills are invoked as `/general-productivity:<skill>`.
 
 Just this bucket:
 

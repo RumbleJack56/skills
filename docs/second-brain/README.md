@@ -48,5 +48,4 @@ flush, rollover, backlog, routing, drafts, hooks and linking.
 
 ## Retired
 
-The `adhd` skill was removed after its rules moved into `overwhelm`, `plan` and `capture`; see
-[`adhd-lessons.md`](adhd-lessons.md).
+The `adhd` skill was removed after its rules moved into `overwhelm`, `plan` and `capture`.
