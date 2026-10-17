@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+// Launcher for the brain engine. The engine is plain ESM in ./lib so it stays dependency-free.
+import("./lib/main.mjs").then((m) => m.main(process.argv.slice(2))).catch((e) => {
+  console.error(`brain: ${e && e.message ? e.message : e}`);
+  process.exit(1);
+});

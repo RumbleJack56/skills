@@ -223,11 +223,25 @@ function validate() {
       if (!NAME_RE.test(s.fm.name ?? "") || s.fm.name.length > 64) errors.push(`${sw}: name must be kebab-case, <=64 chars`);
       if (!s.fm.description) errors.push(`${sw}: description is required`);
       else if (s.fm.description.length > 1024) errors.push(`${sw}: description exceeds 1024 chars`);
-      if (/TODO/.test(fs.readFileSync(s.file, "utf8"))) errors.push(`${sw}: SKILL.md still contains TODO placeholders`);
+      const body = fs.readFileSync(s.file, "utf8");
+      if (/TODO/.test(body)) errors.push(`${sw}: SKILL.md still contains TODO placeholders`);
+      if (body.split("\n").length > 500) errors.push(`${sw}: SKILL.md is over 500 lines; move material to references/`);
+      for (const m of body.matchAll(/\]\((references\/[^)#\s]+|assets\/[^)#\s]+)\)/g))
+        if (!fs.existsSync(path.join(path.dirname(s.file), m[1]))) errors.push(`${sw}: broken link ${m[1]}`);
+      if (/\bbin\/brain\b/.test(body) && !fs.existsSync(path.join(ROOT, "bin", "brain"))) errors.push(`${sw}: uses bin/brain but the engine is missing`);
       if (seen.has(s.dir)) errors.push(`${sw}: skill name also used in ${seen.get(s.dir)} (names must be unique repo-wide)`);
       seen.set(s.dir, where);
     }
   }
+
+  const engines = ["bin/brain", "bin/lib/main.mjs"].filter((f) => !fs.existsSync(path.join(ROOT, f)));
+  if (fs.existsSync(path.join(ROOT, "bin")) && engines.length) errors.push(`engine incomplete: missing ${engines.join(", ")}`);
+  const copies = [];
+  const scan = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) { if (e.name === ".git" || e.name === "node_modules" || e.name === ".scratchpad") continue; const p = path.join(d, e.name); if (e.isDirectory()) scan(p); else if (e.name === "main.mjs" && path.basename(d) === "lib") copies.push(path.relative(ROOT, p)); } };
+  scan(ROOT);
+  if (copies.length > 1) errors.push(`only one engine tree is allowed, found: ${copies.join(", ")}`);
+  const total = [...Object.keys(buckets)].flatMap((b) => listSkills(b)).reduce((n, x) => n + (x.fm?.description?.length ?? 0), 0);
+  if (total > 20000) errors.push(`combined skill descriptions are ${total} chars; they all load into context, keep them under 20000`);
 
   const stale = "is out of date. Run `node scripts/skills.mjs sync`";
   if (JSON.stringify(plugin.skills) !== JSON.stringify(expectedPluginSkills())) errors.push(`plugin.json skills ${stale}`);

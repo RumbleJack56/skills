@@ -60,8 +60,8 @@ claude plugin validate .           # when the claude CLI is available
 
 ## Where skills read and write
 
-Every skill works only inside these three directories at the project root it runs in. Each SKILL.md must say
-which ones it uses and explain the convention itself, because skills are installed on their own.
+The `engineering` and `niche` skills work only inside three directories at the project root they run in. Each
+SKILL.md must say which ones it uses and explain the convention itself, because skills are installed on their own.
 
 | Directory | Git | Purpose |
 |---|---|---|
@@ -72,11 +72,18 @@ which ones it uses and explain the convention itself, because skills are install
 Ideas move up the chain as they mature: `.scratchpad/` → `.mynotes/` → `docs/`. A skill that writes to
 `.mynotes/` or `.scratchpad/` makes sure they're gitignored first.
 
+The `general-productivity` skills are the exception. They work inside the user's **brain folder** (an Obsidian
+vault, a Claude Code directory and a private git repo) and in a project repo's `.brain/` link. They define
+their own layout (see the `brain-notes` skill). The engine is `bin/brain` (zero-dependency Node ≥ 18, needs
+`rg` and GNU `sed`). Design notes live in `docs/second-brain/`.
+
 ## Skills
 
-- **`general-productivity/adhd`**: an ADHD-friendly personal organizer. It captures, prioritizes and tracks
-  tasks in `.mynotes/` and hands the chosen task to `.scratchpad/focus.md`. It organizes and **never does
-  the tasks itself**. Every reply is short, shows at most 3 priorities and ends with one `**Next:**` action.
+- **`general-productivity/*`**: the second brain, built on the FLAP method (fleeting, literature, atomic,
+  project). They organize and **never do the user's tasks**. Every reply is short, shows at most 3 priorities
+  and ends with one `**Next:**` action. Core loop: `capture`, `route`, `plan`, `daily-review`. Also
+  `brain-setup`, `brain-notes` (conventions), `task-graph`, `overwhelm`, `routines`, `reminders`, `backlog`.
+  The retired `adhd` skill's lessons are in `docs/second-brain/adhd-lessons.md`.
 - **`niche/setup-vps`**: sets up a VPS over SSH as root. It generates an idempotent per-step script in
   `.scratchpad/setup-vps/<host>/` and runs it only on request, one confirmed step at a time. It adapts to
   the OS. It covers users and sudo, the `deploy` service user (rootless Podman for all containers), the
