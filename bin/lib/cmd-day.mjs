@@ -334,3 +334,21 @@ export function backup(ctx, { push } = {}) {
   }
   return msg;
 }
+
+// Find open tasks by words in the title. Returns lines with the key#hash needed by done/snooze.
+export function taskFind(ctx, words, limit = 8) {
+  const all = ctx.load();
+  const norm = (w) => w.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]+/g, "").replace(/[^\p{L}\p{N}\p{M}]/gu, "").replace(/s$/, "");
+  const terms = [...new Set(words.join(" ").split(/\s+/).map(norm).filter((w) => [...w].length > 1))];
+  if (!terms.length) throw new Error("usage: brain task find <words>");
+  const rows = all.tasks.filter((t) => !t.closed).map((t) => {
+    const hay = norm(t.title) + " " + t.title.toLowerCase();
+    const n = terms.filter((w) => hay.includes(w)).length;
+    return { t, n };
+  }).filter((r) => r.n > 0).sort((a, b) => b.n - a.n || a.t.key.localeCompare(b.t.key));
+  const out = rows.slice(0, limit).map((r) => `${T(r.t)}  [${r.t.project}${r.t.waiting ? ", waiting" : ""}${r.t.bad ? ", needs fixing" : ""}]  (${ref(r.t)})`);
+  if (rows.length > limit) out.push(`... ${rows.length - limit} more; use more words`);
+  out.push(rows.length ? `${rows.filter((r) => r.n === rows[0].n).length} best match${rows.filter((r) => r.n === rows[0].n).length === 1 ? "" : "es"}` : "no open task matches");
+  out.push(coverageLine(all.cov));
+  return out.join("\n");
+}

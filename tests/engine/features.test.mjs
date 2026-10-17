@@ -245,3 +245,17 @@ test("setup-claude writes commands, hooks and permissions, and keeps user files"
   assert.equal(s.hooks.SessionStart.length, 1);
   assert.ok(s.permissions.allow.every((r) => !/brain \*|:\*\)$/.test(r) || /brain [a-z-]+( [a-z-]+)*:\*\)$/.test(r)));
 });
+test("task find returns key#hash that done accepts", () => {
+  const b = makeBrain(); b.project("p", "- [ ] Write the intro ^a\n- [ ] Draft outline ^b\n");
+  const o = b.b("task", "find", "intro").out; const r = ref(o, "p/a"); assert.ok(r, o);
+  assert.ok(has(o, "1 best match"));
+  assert.ok(has(b.b("done", r).out, "done: Write the intro"));
+});
+test("task drop closes a task with [-] and is undoable", () => {
+  const b = makeBrain(); b.project("p", "- [ ] Old thing ^a\n");
+  const r = ref(b.b("task", "find", "old").out, "p/a");
+  assert.ok(has(b.b("task", "drop", r).out, "dropped"));
+  assert.ok(has(b.r("projects/p/tasks.md"), "- [-] Old thing"));
+  assert.ok(!has(b.b("plan", "next").out, "Old thing"));
+  b.b("undo"); assert.ok(has(b.r("projects/p/tasks.md"), "- [ ] Old thing"));
+});

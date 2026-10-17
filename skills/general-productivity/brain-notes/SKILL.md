@@ -70,7 +70,8 @@ something was not parsed, tell the user before relying on the answer.
 ## Writing
 
 - Add and change notes with engine commands. If you edit a file directly, run `brain reindex` and `brain lint` after.
-- `done` and `snooze` take a task id and its line hash from `brain plan` output. Never match by title.
+- `done` and `snooze` take `key#hash` from `brain plan` or `brain task find <words>` output. Never match by title.
+- `brain find` searches notes (the `##` items), not tasks. Tasks are found with `brain task find`.
 - Autonomy per skill is `report` (act when unambiguous, then say so and how to undo) or `ask` (confirm every write).
   It is set in `.brain/config.json`; default `report`. Ambiguous and bulk cases ask in both modes.
 - Hooks fail open and never block a prompt.

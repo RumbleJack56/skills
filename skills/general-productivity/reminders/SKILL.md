@@ -11,8 +11,8 @@ A reminder is `[remind:: YYYY-MM-DD HH:MM]` (or date only) on a task line or in 
 
 - **Set:** `brain remind add "<YYYY-MM-DD HH:MM>" "<text>"`. Convert "tomorrow 9am" into the user's local time zone (`.brain/config.json`). If the time is ambiguous, ask one short question. Add `--hard` for things that must stay until acted on (meds, rent).
 - **List:** `brain due` lists reminders that are due or older. `brain remind list` lists all.
-- **Snooze:** `brain snooze <id> --hash <hash> --until <date>`.
-- **Done:** `brain done <id> --hash <hash>` (see `task-graph`).
+- **Snooze:** `brain snooze <key#hash> --until <date>`.
+- **Done:** `brain done <key#hash>` (see `task-graph`).
 - An invalid date is shown as an error line in the morning review, never hidden.
 
 ## Behaviour

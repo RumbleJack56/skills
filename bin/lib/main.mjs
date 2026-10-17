@@ -14,7 +14,7 @@ const HELP = `brain <command>
   Read:    projects | brief <p> | find <words> | get <project/file> <slug> | grep [flags] <regex> | plan next|today|all | due | lint
   Collect: dump [--kind note|dump] <text|-> | remind add <when> <text> [--hard] | remind list
   Route:   route list | route move <note> <project> | route decline <word> | snooze-note <note>
-  Tasks:   task add <p> <title> [--after --energy --effort --due --value --waiting --check --start] | task set <key#hash> k=v ...
+  Tasks:   task find <words> | task drop <key#hash> | task add <p> <title> [--after --energy --effort --due --value --waiting --check --start] | task set <key#hash> k=v ...
            done <key#hash> | snooze <key#hash> --until DATE | undo [n] | now add <key#hash> | now add-step <text> | now show
   Day:     morning | wrap | flush | restart | weekly | backlog | today win <text> | routines list|add|item|spawn
   Know:    note new --kind .. --title .. --source .. (stdin) | draft list|confirm|reject | consume <note> | project state|archive
@@ -90,6 +90,8 @@ export async function main(argv) {
         const r = core.taskAdd(ctx, a._[0], a._.slice(1).join(" "), f);
         return out(`added ${r.key}${r.over ? ` (warning: ${r.open} open tasks, over the 12-task budget; propose a split)` : ""}`);
       }
+      if (sub === "drop") { const r = core.taskDrop(ctx, args[1]); return out(r.already ? `already closed: ${clean(r.t.title)}` : `dropped: ${clean(r.t.title)} (undo: /undo)`); }
+      if (sub === "find") return out(fence(day.taskFind(ctx, args.slice(1))));
       if (sub === "set") {
         const a = parseArgs(args.slice(1), ["hash"]);
         const sets = {}; for (const kv of a._.slice(1)) { const m = /^([a-z]+)=(.*)$/.exec(kv); if (!m) throw new Error(`bad assignment "${kv}" (use key=value)`); sets[m[1]] = m[2]; }

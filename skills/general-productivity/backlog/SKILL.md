@@ -23,10 +23,10 @@ Ask **one** question per task, once:
 
 1. Shrink it to a 5-minute step (`brain task add` the smaller task; the old one stays as the parent if still needed).
 2. Split it into smaller tasks.
-3. Move `start::` later (`brain snooze <id> --hash <hash> --until <date>`).
-4. Drop it (`[-]`). Dropping is allowed; deleting is valid.
+3. Move `start::` later (`brain snooze <key#hash> --until <date>`).
+4. Drop it: `brain task drop <key#hash>`. Dropping is allowed; deleting is valid.
 
-Apply the user's choice, say what changed and how to undo. Never repeat the question for the same task at `slips::3`; it asks again only at `slips::6`.
+Apply the user's choice, say what changed and how to undo. Then record the question as asked: `brain task set <key#hash> asked=<slips>`. The engine does not list that task again until `slips::6`.
 
 ## Weekly
 

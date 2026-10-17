@@ -19,10 +19,10 @@ Keeps `projects/<p>/tasks.md` correct and small. Format: `brain-notes`. Engine: 
 
 ## Marking and moving
 
-- `/done <words>`: find the one open task with `brain find`, then `brain done <id> --hash <hash>`.
+- `/done <words>`: find the open task with `brain task find <words>` (it prints `key#hash`), then `brain done <key#hash>`.
   - Act (report mode) only when: the user clearly said it is finished, exactly one open task matches, and it is not `waiting::`. Reply `done: <title> (undo: /undo)`.
   - Ask first when several match, the user only hinted, or more than 3 tasks are named.
-- `/snooze <words> <when>`: `brain snooze <id> --hash <hash> --until <date>`. This sets `start::`.
+- `/snooze <words> <when>`: `brain snooze <key#hash> --until <date>`. This sets `start::`.
 - Dropping a task (`[-]`) is allowed and needs the user's yes.
 
 ## Fixing
@@ -34,5 +34,5 @@ without `start`, a `waiting::` without `check::`, more than 12 open tasks. A tas
 
 ## Rules
 
-- Never match a task by its title when writing. Use the id and the line hash from the engine.
+- Never match a task by its title when writing. Use the `key#hash` from `brain task find` or the plan output.
 - Do not add tasks the user did not ask for or that did not come from their notes.
