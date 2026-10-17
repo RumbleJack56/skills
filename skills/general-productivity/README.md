@@ -13,4 +13,14 @@ npx skills add https://github.com/RumbleJack56/skills/tree/main/skills/general-p
 
 | Skill | What it does |
 |---|---|
-| [`adhd`](adhd/SKILL.md) | ADHD-friendly personal organizer. |
+| [`backlog`](backlog/SKILL.md) | Manage tasks that were planned for today but not done, and the overall backlog of the second brain, with no guilt. |
+| [`brain-notes`](brain-notes/SKILL.md) | Conventions of the user's second brain (an Obsidian vault that is also a Claude Code directory): the FLAP note tags, the folder layout, the project file format, the task line format and the rules for reading and writing notes through the brain engine. |
+| [`brain-setup`](brain-setup/SKILL.md) | Set up the user's second brain: one folder that is an Obsidian vault, a Claude Code directory and a private git repo, with the inbox, projects, daily, routines and knowledge-base layout, short slash commands, hooks and a project link. |
+| [`capture`](capture/SKILL.md) | Save anything the user wants to remember or do into the second brain's inbox without sorting, planning or answering it. |
+| [`daily-review`](daily-review/SKILL.md) | Run the second brain's day rhythm: the morning review (routines, due reminders, inbox count, today's plan), the evening wrap (flush live tasks, record wins, roll unfinished work back with no guilt) and the weekly review. |
+| [`overwhelm`](overwhelm/SKILL.md) | Help the user when they are overwhelmed and cannot start: dump everything, pick three, shrink the first to a five-minute step, start a timer. |
+| [`plan`](plan/SKILL.md) | Choose what the user does next or today from their second-brain task graph, matched to energy and time. |
+| [`reminders`](reminders/SKILL.md) | Set, list, snooze and clear reminders in the second brain, and turn on the optional phone notification. |
+| [`route`](route/SKILL.md) | Sort the second brain's inbox: move fleeting notes into the right project as tasks, snooze them, or propose a new project when 5 or more related items appear. |
+| [`routines`](routines/SKILL.md) | Create and edit the recurring routines of the second brain: daily template items, weekday habits, weekly and monthly chores. |
+| [`task-graph`](task-graph/SKILL.md) | Add, break down and fix tasks in a second-brain project so the planner can use them. |

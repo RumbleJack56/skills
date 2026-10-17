@@ -6,10 +6,20 @@
     "name": "RumbleJack56"
   },
   "skills": [
-    "./skills/app-development/client-state-setup",
-    "./skills/app-development/ota-playbook",
-    "./skills/app-development/server-api-setup",
-    "./skills/general-productivity/adhd",
+    "./skills/engineering/client-state-setup",
+    "./skills/engineering/ota-playbook",
+    "./skills/engineering/server-api-setup",
+    "./skills/general-productivity/backlog",
+    "./skills/general-productivity/brain-notes",
+    "./skills/general-productivity/brain-setup",
+    "./skills/general-productivity/capture",
+    "./skills/general-productivity/daily-review",
+    "./skills/general-productivity/overwhelm",
+    "./skills/general-productivity/plan",
+    "./skills/general-productivity/reminders",
+    "./skills/general-productivity/route",
+    "./skills/general-productivity/routines",
+    "./skills/general-productivity/task-graph",
     "./skills/niche/setup-vps"
   ]
 }

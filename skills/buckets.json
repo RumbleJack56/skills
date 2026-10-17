@@ -11,8 +11,8 @@
     "description": "Specialized, opinionated setups for specific tools and environments",
     "shipped": true
   },
-  "app-development": {
-    "description": "React Native app development with Expo: server state, client state, and over-the-air release playbooks",
+  "engineering": {
+    "description": "Backend and app engineering playbooks: React Native with Expo (server state, client state, over-the-air release)",
     "shipped": true
   }
 }

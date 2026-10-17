@@ -82,7 +82,7 @@ Ideas move up the chain as they mature: `.scratchpad/` → `.mynotes/` → `docs
   the OS. It covers users and sudo, the `deploy` service user (rootless Podman for all containers), the
   shared `/srv` and `/shared` group dirs, the firewall, fail2ban, optional Traefik and optional SSH
   hardening, and records the result in `docs/vps/<host>.md`.
-- **`app-development/*`**: three playbooks for an Expo React Native app. They are written in ASD-STE100
+- **`engineering/*`**: three playbooks for an Expo React Native app. They are written in ASD-STE100
   Simplified Technical English, package patterns and decisions (not tutorials), and each works alone. Each
   keeps notes in `.scratchpad/<skill>/` and a decision record in `docs/app/`; app source code is the work
   product and stays in the app tree.
