@@ -80,15 +80,16 @@ You can also call one directly:
 | Installed via | Invoke as |
 |---|---|
 | Claude Code plugin | `/<bucket>:<skill>`, e.g. `/general-productivity:plan` |
-| `npx skills` or manual | `/<skill>`, e.g. `/adhd` |
+| `npx skills` or manual | `/<skill>`, e.g. `/plan` |
 
 Examples:
 
-- **`adhd`**: "I'm overwhelmed, here's everything I need to do: …", "what should I work on next?",
-  "break this task down".
+- **`overwhelm`, `plan`, `capture`** (second brain): "I'm overwhelmed, here's everything I need to do: …",
+  "what should I work on next?", "need to call the dentist".
 - **`setup-vps`**: "set up my new VPS at 203.0.113.10 for alice (sudo) and bob, with Traefik in front".
 
-Skills only read and write three folders in the project they run in:
+The `engineering` and `niche` skills only read and write three folders in the project they run in (the second
+brain works in its own brain folder):
 
 | Folder | Git | Used for |
 |---|---|---|
