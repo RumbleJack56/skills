@@ -10,10 +10,27 @@ files.
 | Bucket | Use case | Skills | Claude Code plugin |
 |---|---|---|---|
 | [`engineering`](skills/engineering) | Backend and app engineering playbooks: React Native with Expo (server state, client state, over-the-air release) | `client-state-setup`, `ota-playbook`, `server-api-setup` | ✓ `/rumblejack-skills:…` |
-| [`general-productivity`](skills/general-productivity) | Personal organization and planning: capture, prioritize and track what to do without losing focus | `backlog`, `brain-notes`, `brain-setup`, `capture`, `daily-review`, `overwhelm`, `plan`, `playbook`, `project-sync`, `refine`, `reminders`, `route`, `routines`, `task-graph` | ✓ `/rumblejack-skills:…` |
+| [`general-productivity`](skills/general-productivity) | Second brain for Claude Code and Obsidian (FLAP method): capture, route, plan the day, projects, routines, reminders, knowledge notes. Needs the Claude Code plugin (it ships the brain engine) | `backlog`, `brain-notes`, `brain-setup`, `capture`, `daily-review`, `overwhelm`, `plan`, `playbook`, `project-sync`, `refine`, `reminders`, `route`, `routines`, `task-graph` | ✓ `/rumblejack-skills:…` |
 | [`in-progress`](skills/in-progress) | Beta skills still being tested. Not shipped in the Claude Code plugin; install individually with npx skills | _none yet_ | npx only |
 | [`niche`](skills/niche) | Specialized, opinionated setups for specific tools and environments | `setup-vps` | ✓ `/rumblejack-skills:…` |
 <!-- catalog:end -->
+
+## Second brain (`general-productivity`)
+
+A second brain for Claude Code and Obsidian, built on the FLAP method (fleeting, literature, atomic, project).
+One folder is an Obsidian vault, a Claude Code directory and a private git repo. These skills need the
+**Claude Code plugin route**, because the plugin ships the engine (`bin/brain`, Node 18 or newer, `rg` and GNU
+`sed` on the path). The `npx skills` route installs the text only and does not include the engine.
+
+```text
+/plugin install rumblejack-skills@rumblejack-skills
+/rumblejack-skills:brain-setup        # creates the brain, short commands, hooks
+```
+
+After setup, work from the brain folder. Anything that is not a question or a command is captured to the
+inbox. Short commands such as `/next`, `/today`, `/done`, `/route`, `/morning`, `/wrap`, `/restart`,
+`/backlog` and `/overwhelm` are available in the brain, also from the phone through Remote Control. Details
+and design notes: [`docs/second-brain/`](docs/second-brain/README.md).
 
 ## Install
 
