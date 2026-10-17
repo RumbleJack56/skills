@@ -270,6 +270,8 @@ export function lint(ctx) {
     if (/\/tasks(\.now)?\.md$/.test(rel) || /^projects\/[^/]+\/(status|handoff|decisions)\.md$/.test(rel) && false) return;
     const lines = d.text.split("\n");
     if (lines[0] === "---" && lines.indexOf("---", 1) < 0) errors.push(`${rel}: frontmatter is not closed`);
+    const { fm } = parseFrontmatter(d.text);
+    if ((rel.startsWith("notes/") || rel.startsWith("kb/")) && (fm.status === "draft" || fm.status === "confirmed") && !fm.source) errors.push(`${rel}: a derived note needs a source`);
     for (const it of itemsOf(lines)) {
       if (it.top) continue;
       if (!it.desc) errors.push(`${rel} > ${it.slug}: item needs a "> " description line`);

@@ -12,11 +12,11 @@ Conventions: `brain-notes`. Engine: `"${CLAUDE_PLUGIN_ROOT}/bin/brain"` (`brain`
 
 1. Find the brain (see `brain-notes`). Not found: write nothing. Say "no brain here" once.
 2. Decide what the message holds:
-   - One thought: `brain dump --kind note "<verbatim text>"`
-   - A list or several thoughts: `brain dump --kind dump` with the whole text on stdin (`brain dump --kind dump -`). The engine writes one fleeting note per item.
-   - "remind me <when> to <x>": `brain remind add "<when>" "<x>"`. Convert the time to `YYYY-MM-DD HH:MM` in the user's time zone. If the time is ambiguous, ask one short question.
+   - One thought: `brain dump --kind note -` with the text on stdin
+   - A list or several thoughts: `brain dump --kind dump -` with the whole text on stdin. The engine writes one fleeting note per item.
+   - "remind me <when> to <x>": `brain remind add -- "<when>" "<x>"`. Convert the time to `YYYY-MM-DD HH:MM` in the user's time zone. If the time is ambiguous, ask one short question.
    - A question or instruction mixed in: answer or do that part, capture the rest, and say both.
-3. Copy the user's words exactly. Do not fix, reword or expand them. Pass text on stdin or as a single quoted argument; never build a shell command by pasting text into it unquoted.
+3. Copy the user's words exactly. Do not fix, reword or expand them. Always pass the text on stdin (a quoted here-document), never inside a command line: text can start with `-` or contain quotes.
 4. Reply with one line from the engine, for example `captured (4 in inbox)`. Name the file so `/undo` is safe.
 
 ## Rules

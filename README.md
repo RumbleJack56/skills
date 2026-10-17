@@ -10,7 +10,7 @@ files.
 | Bucket | Use case | Skills | Claude Code plugin |
 |---|---|---|---|
 | [`engineering`](skills/engineering) | Backend and app engineering playbooks: React Native with Expo (server state, client state, over-the-air release) | `client-state-setup`, `ota-playbook`, `server-api-setup` | ✓ `/rumblejack-skills:…` |
-| [`general-productivity`](skills/general-productivity) | Personal organization and planning: capture, prioritize and track what to do without losing focus | `backlog`, `brain-notes`, `brain-setup`, `capture`, `daily-review`, `overwhelm`, `plan`, `reminders`, `route`, `routines`, `task-graph` | ✓ `/rumblejack-skills:…` |
+| [`general-productivity`](skills/general-productivity) | Personal organization and planning: capture, prioritize and track what to do without losing focus | `backlog`, `brain-notes`, `brain-setup`, `capture`, `daily-review`, `overwhelm`, `plan`, `playbook`, `project-sync`, `refine`, `reminders`, `route`, `routines`, `task-graph` | ✓ `/rumblejack-skills:…` |
 | [`in-progress`](skills/in-progress) | Beta skills still being tested. Not shipped in the Claude Code plugin; install individually with npx skills | _none yet_ | npx only |
 | [`niche`](skills/niche) | Specialized, opinionated setups for specific tools and environments | `setup-vps` | ✓ `/rumblejack-skills:…` |
 <!-- catalog:end -->

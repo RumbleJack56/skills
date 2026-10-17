@@ -203,3 +203,45 @@ test("concurrent writers do not lose lines", async () => {
   const ids = [...b.r("projects/p/tasks.md").matchAll(/\^(t\d+)/g)].map((m) => m[1]);
   assert.equal(ids.length, 8); assert.equal(new Set(ids).size, 8);
 });
+test("derived notes: draft needs a source, confirm is gated, reject and consume are undoable", () => {
+  const b = makeBrain();
+  const body = "Use PKCE.\n\n## Why\n> reason\nSecrets cannot be kept.\n";
+  assert.notEqual(b.run(["note", "new", "--kind", "atomic", "--title", "PKCE", "--source", "nothing"], { input: body }).code, 0);
+  const r = b.run(["note", "new", "--kind", "atomic", "--title", "PKCE", "--source", "[[inbox/x]]"], { input: body });
+  assert.ok(has(r.out, "status: draft"), r.out + r.err);
+  assert.ok(has(b.b("draft", "list").out, "notes/pkce.md"));
+  assert.ok(has(b.b("draft", "confirm", "notes/pkce.md").out, "confirmed"));
+  assert.equal(b.b("lint").code, 0, b.b("lint").out);
+  assert.notEqual(b.b("draft", "reject", "notes/pkce.md").code, 0); // confirmed notes cannot be rejected
+  const k = b.run(["note", "new", "--kind", "kb", "--kb", "playbooks", "--ptype", "method", "--title", "Weekly reset", "--source", "[[inbox/y]]"], { input: "Steps.\n" });
+  assert.ok(has(k.out, "kb/playbooks/weekly-reset.md"), k.out + k.err);
+  assert.ok(has(b.r("kb/playbooks/weekly-reset.md"), "type: method"));
+  b.b("draft", "reject", "kb/playbooks/weekly-reset.md"); assert.equal(b.exists("kb/playbooks/weekly-reset.md"), false);
+  b.b("undo"); assert.equal(b.exists("kb/playbooks/weekly-reset.md"), true);
+});
+test("consume removes only fleeting notes", () => {
+  const b = makeBrain(); b.b("dump", "--kind", "note", "x");
+  const id = fs.readdirSync(path.join(b.root, "inbox"))[0];
+  assert.ok(has(b.b("consume", `inbox/${id}`).out, "removed"));
+  b.w("notes/a.md", "---\ntags: [atomic]\n---\n# a\n"); assert.notEqual(b.b("consume", "notes/a").code, 0);
+});
+test("project state and archive", () => {
+  const b = makeBrain(); b.b("project", "new", "p");
+  assert.notEqual(b.b("project", "state", "p", "paused").code, 0);
+  assert.ok(has(b.b("project", "state", "p", "paused", "--start", "2026-11-01").out, "paused"));
+  assert.ok(has(b.r("projects/p/objectives.md"), "state: paused") && has(b.r("projects/p/objectives.md"), "start: 2026-11-01"));
+  assert.ok(has(b.b("project", "archive", "p").out, "projects/_done/p"));
+  assert.equal(b.exists("projects/p/tasks.md"), false); assert.equal(b.exists("projects/_done/p/tasks.md"), true);
+  b.b("undo"); assert.equal(b.exists("projects/p/tasks.md"), true);
+});
+test("setup-claude writes commands, hooks and permissions, and keeps user files", () => {
+  const b = makeBrain();
+  assert.ok(b.exists(".claude/commands/next.md") && !has(b.r(".claude/commands/next.md"), "disable-model-invocation"));
+  assert.ok(has(b.r(".claude/commands/dump.md"), "disable-model-invocation: true"));
+  b.w(".claude/commands/next.md", "mine\n"); b.b("setup-claude");
+  assert.equal(b.r(".claude/commands/next.md"), "mine\n");
+  const s = JSON.parse(b.r(".claude/settings.json"));
+  assert.ok(s.hooks.SessionStart && s.hooks.SessionEnd && s.hooks.UserPromptSubmit);
+  assert.equal(s.hooks.SessionStart.length, 1);
+  assert.ok(s.permissions.allow.every((r) => !/brain \*|:\*\)$/.test(r) || /brain [a-z-]+( [a-z-]+)*:\*\)$/.test(r)));
+});

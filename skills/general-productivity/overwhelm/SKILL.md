@@ -9,7 +9,7 @@ One small step at a time. Wait for the user between steps. Each message is a few
 
 ## Protocol
 
-1. **Dump.** "Dump everything. Messy is fine." Save it with `brain dump --kind dump -` (stdin). Route nothing yet.
+1. **Dump.** "Dump everything. Messy is fine." Save it with `brain dump --kind dump -` (text on stdin). Route nothing yet.
 2. **Pick 3.** Show at most 7 short items from the dump and the plan and ask for **three**. If the user cannot choose, choose three yourself using `brain plan today --energy low` and say so.
 3. **Shrink the first one** to a step of 5 minutes or less that is hard to fail ("open the file" counts). Write it with `brain now add-step "<step>"` into `tasks.now.md`. Do not add it to the task graph.
 4. **Timer.** "Start a 5-minute timer. You are allowed to stop when it rings." Create `today.md` with the one thing if it is missing (`brain today win "<step>"`).

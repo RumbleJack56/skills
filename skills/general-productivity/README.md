@@ -20,6 +20,9 @@ npx skills add https://github.com/RumbleJack56/skills/tree/main/skills/general-p
 | [`daily-review`](daily-review/SKILL.md) | Run the second brain's day rhythm: the morning review (routines, due reminders, inbox count, today's plan), the evening wrap (flush live tasks, record wins, roll unfinished work back with no guilt) and the weekly review. |
 | [`overwhelm`](overwhelm/SKILL.md) | Help the user when they are overwhelmed and cannot start: dump everything, pick three, shrink the first to a five-minute step, start a timer. |
 | [`plan`](plan/SKILL.md) | Choose what the user does next or today from their second-brain task graph, matched to energy and time. |
+| [`playbook`](playbook/SKILL.md) | Create, find and run the user's playbooks, methods and guides: repeatable processes they learnt or wrote down in the second brain. |
+| [`project-sync`](project-sync/SKILL.md) | Keep a second-brain project and its code repo in step: write the objectives, status and handoff files, change a project's state, link a repo, and wrap up a finished project. |
+| [`refine`](refine/SKILL.md) | Turn the user's fleeting notes into knowledge: literature notes on sources, atomic notes in the user's words, and knowledge-base notes about people, things, systems and playbooks. |
 | [`reminders`](reminders/SKILL.md) | Set, list, snooze and clear reminders in the second brain, and turn on the optional phone notification. |
 | [`route`](route/SKILL.md) | Sort the second brain's inbox: move fleeting notes into the right project as tasks, snooze them, or propose a new project when 5 or more related items appear. |
 | [`routines`](routines/SKILL.md) | Create and edit the recurring routines of the second brain: daily template items, weekday habits, weekly and monthly chores. |

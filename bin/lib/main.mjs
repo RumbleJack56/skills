@@ -8,6 +8,7 @@ import * as core from "./cmd-core.mjs";
 import * as notes from "./cmd-notes.mjs";
 import * as day from "./cmd-day.mjs";
 import * as nt from "./notes.mjs";
+import * as know from "./cmd-know.mjs";
 
 const HELP = `brain <command>
   Read:    projects | brief <p> | find <words> | get <project/file> <slug> | grep [flags] <regex> | plan next|today|all | due | lint
@@ -16,7 +17,8 @@ const HELP = `brain <command>
   Tasks:   task add <p> <title> [--after --energy --effort --due --value --waiting --check --start] | task set <key#hash> k=v ...
            done <key#hash> | snooze <key#hash> --until DATE | undo [n] | now add <key#hash> | now add-step <text> | now show
   Day:     morning | wrap | flush | restart | weekly | backlog | today win <text> | routines list|add|item|spawn
-  Setup:   init <path> | project new <slug> | link <project> <repo> | reindex | hook start|prompt | recover | backup`;
+  Know:    note new --kind .. --title .. --source .. (stdin) | draft list|confirm|reject | consume <note> | project state|archive
+  Setup:   init <path> | setup-claude (commands, hooks, permissions) | project new <slug> | link <project> <repo> | reindex | hook start|prompt | recover | backup`;
 
 const out = (s) => process.stdout.write(s.endsWith("\n") ? s : s + "\n");
 
@@ -30,10 +32,13 @@ export async function main(argv) {
     const a = parseArgs(args, ["timezone"], ["no-git"]);
     if (!a._[0]) throw new Error("usage: brain init <path>");
     const r = core.init(a._[0], { timezone: flag(a, "timezone"), git: !a.flags["no-git"] });
+    const cc = core.setupClaude(r.root);
+    r.made.push(...cc.made); r.skipped.push(...cc.kept);
     out(`brain at ${r.root}: ${r.made.length} created, ${r.skipped.length} kept (existing files are never overwritten)`);
     if (r.skipped.length) out("kept: " + r.skipped.join(", "));
     return;
   }
+  if (cmd === "setup-claude") { const r = core.setupClaude(makeCtx({ brain: brainOpt[0] }).root); return out(`updated: ${r.made.join(", ")}${r.kept.length ? `; kept: ${r.kept.length} existing command files` : ""}\nengine: ${r.engine}`); }
   // hooks must never block or fail loudly
   if (cmd === "hook") {
     try {
@@ -149,9 +154,25 @@ export async function main(argv) {
       if (sub === "decline") { notes.routeDecline(ctx, args.slice(1).join(" ")); return out("noted: will not propose that project again"); }
       throw new Error("usage: brain route list|move|decline");
     }
+    case "note": {
+      if (args[0] !== "new") throw new Error("usage: brain note new --kind literature|atomic|kb --title T --source \"[[note]]\" [--kb people|things|systems|playbooks] [--ptype playbook|method|guide] (body on stdin)");
+      const a = parseArgs(args.slice(1), ["kind", "title", "source", "kb", "ptype"]);
+      const body = await readStdin();
+      return out(`draft written: ${know.noteNew(ctx, { kind: flag(a, "kind"), title: flag(a, "title"), source: flag(a, "source"), kbDir: flag(a, "kb"), ptype: flag(a, "ptype"), body })} (status: draft)`);
+    }
+    case "draft": {
+      const sub = args[0];
+      if (sub === "list") { const l = know.draftList(ctx); return out(fence(l.map((d) => `${d.rel}  ${d.title}  source: ${clean(d.source)}`).join("\n") || "no drafts")); }
+      if (sub === "confirm") return out(`confirmed ${know.draftConfirm(ctx, args[1])} (undo: /undo)`);
+      if (sub === "reject") { know.draftReject(ctx, args[1]); return out("draft removed (undo: /undo)"); }
+      throw new Error("usage: brain draft list|confirm|reject");
+    }
+    case "consume": { know.consume(ctx, args[0]); return out("fleeting note removed after processing (undo: /undo)"); }
     case "snooze-note": { const w = notes.snoozeNote(ctx, args[0]); return out(`review again on ${w}`); }
     case "project": {
-      if (args[0] !== "new") throw new Error("usage: brain project new <slug> [--outcome TEXT] [--due DATE]");
+      if (args[0] === "state") { const a = parseArgs(args.slice(1), ["start"]); know.projectState(ctx, a._[0], a._[1], flag(a, "start")); return out(`project ${a._[0]} is ${a._[1]}`); }
+      if (args[0] === "archive") { return out(`archived to ${know.projectArchive(ctx, args[1])}`); }
+      if (args[0] !== "new") throw new Error("usage: brain project new|state|archive ...");
       const a = parseArgs(args.slice(1), ["outcome", "due"]);
       const r = core.projectNew(ctx, a._[0], { outcome: flag(a, "outcome"), due: flag(a, "due") });
       return out(r.created ? `project ${r.slug} created` : `project ${r.slug} already exists`);

@@ -381,3 +381,43 @@ export function assignIds(ctx, file, tasks, prefix = "t") {
     return ls.join("\n");
   }));
 }
+
+// ---------- Claude Code config inside the brain ----------
+import { fileURLToPath } from "node:url";
+const ENGINE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "brain");
+const PLUGIN_ROOT = path.resolve(path.dirname(ENGINE), "..");
+const READ_ONLY = ["projects", "brief", "find", "get", "grep", "plan", "due", "lint", "backlog", "weekly", "restart", "recover", "now show", "routines list", "remind list"];
+const WRITING = ["dump", "remind add", "route", "snooze-note", "task", "done", "snooze", "undo", "now add", "now add-step", "flush", "wrap", "morning", "today win", "routines", "project new", "reindex"];
+
+// Copies the short slash commands and merges hooks/permissions into <brain>/.claude. Never overwrites a command file.
+export function setupClaude(root, { refresh = false } = {}) {
+  const made = [], kept = [];
+  const src = path.join(PLUGIN_ROOT, "skills", "general-productivity", "brain-setup", "assets", "commands");
+  const dst = path.join(root, ".claude", "commands");
+  fs.mkdirSync(dst, { recursive: true });
+  if (fs.existsSync(src)) {
+    for (const n of fs.readdirSync(src)) {
+      const to = path.join(dst, n);
+      if (fs.existsSync(to)) { kept.push(`.claude/commands/${n}`); continue; }
+      atomicWrite(to, fs.readFileSync(path.join(src, n)));
+      made.push(`.claude/commands/${n}`);
+    }
+  }
+  const sf = path.join(root, ".claude", "settings.json");
+  let s = {}; try { s = JSON.parse(fs.readFileSync(sf, "utf8")); } catch {}
+  const q = (c) => `${ENGINE} ${c}`;
+  const hook = (cmd) => [{ hooks: [{ type: "command", command: q(cmd), timeout: 10 }] }];
+  const mine = (e) => JSON.stringify(e).includes(ENGINE) || JSON.stringify(e).includes("bin/brain hook");
+  s.hooks = s.hooks ?? {};
+  for (const [ev, cmd] of [["SessionStart", "hook start"], ["SessionEnd", "hook end"], ["UserPromptSubmit", "hook prompt"]]) {
+    const others = (s.hooks[ev] ?? []).filter((e) => !mine(e));
+    s.hooks[ev] = [...others, ...hook(cmd)];
+  }
+  s.permissions = s.permissions ?? {};
+  const rules = [...READ_ONLY, ...WRITING].map((c) => `Bash(${ENGINE} ${c}:*)`);
+  const keep = (s.permissions.allow ?? []).filter((r) => !String(r).startsWith(`Bash(${ENGINE} `));
+  s.permissions.allow = [...keep, ...rules];
+  atomicWrite(sf, Buffer.from(JSON.stringify(s, null, 2) + "\n"));
+  made.push(".claude/settings.json (hooks + permissions)");
+  return { made, kept, engine: ENGINE };
+}
