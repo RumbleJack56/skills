@@ -3,7 +3,7 @@
 
 Specialized, opinionated setups for specific tools and environments
 
-Claude Code: included in the `rumblejack-skills` plugin, so skills are invoked as `/rumblejack-skills:<skill>`.
+Claude Code: install the `niche` plugin (`/plugin install niche@rumblejack-skills`); skills are invoked as `/niche:<skill>`.
 
 Just this bucket:
 

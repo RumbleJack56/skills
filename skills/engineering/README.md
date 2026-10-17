@@ -3,7 +3,7 @@
 
 Backend and app engineering playbooks: React Native with Expo (server state, client state, over-the-air release)
 
-Claude Code: included in the `rumblejack-skills` plugin, so skills are invoked as `/rumblejack-skills:<skill>`.
+Claude Code: install the `engineering` plugin (`/plugin install engineering@rumblejack-skills`); skills are invoked as `/engineering:<skill>`.
 
 Just this bucket:
 

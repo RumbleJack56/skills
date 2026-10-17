@@ -4,15 +4,54 @@
     "name": "RumbleJack56"
   },
   "metadata": {
-    "description": "RumbleJack56's agent skills, organized into buckets by use case.",
-    "version": "0.1.0"
+    "description": "RumbleJack56's agent skills, one plugin per bucket.",
+    "version": "0.3.0"
   },
   "plugins": [
     {
-      "name": "rumblejack-skills",
+      "name": "engineering",
       "source": "./",
-      "description": "RumbleJack56's agent skills, organized into buckets by use case.",
-      "version": "0.3.0"
+      "description": "Backend and app engineering playbooks: React Native with Expo (server state, client state, over-the-air release)",
+      "version": "0.3.0",
+      "strict": false,
+      "skills": [
+        "./skills/engineering/client-state-setup",
+        "./skills/engineering/ota-playbook",
+        "./skills/engineering/server-api-setup"
+      ]
+    },
+    {
+      "name": "general-productivity",
+      "source": "./",
+      "description": "Second brain for Claude Code and Obsidian (FLAP method): capture, route, plan the day, projects, routines, reminders, knowledge notes. Works from the plugin or npx skills; brain-setup installs the engine",
+      "version": "0.3.0",
+      "strict": false,
+      "skills": [
+        "./skills/general-productivity/backlog",
+        "./skills/general-productivity/brain-notes",
+        "./skills/general-productivity/brain-setup",
+        "./skills/general-productivity/capture",
+        "./skills/general-productivity/daily-review",
+        "./skills/general-productivity/overwhelm",
+        "./skills/general-productivity/plan",
+        "./skills/general-productivity/playbook",
+        "./skills/general-productivity/project-sync",
+        "./skills/general-productivity/refine",
+        "./skills/general-productivity/reminders",
+        "./skills/general-productivity/route",
+        "./skills/general-productivity/routines",
+        "./skills/general-productivity/task-graph"
+      ]
+    },
+    {
+      "name": "niche",
+      "source": "./",
+      "description": "Specialized, opinionated setups for specific tools and environments",
+      "version": "0.3.0",
+      "strict": false,
+      "skills": [
+        "./skills/niche/setup-vps"
+      ]
     }
   ]
 }
