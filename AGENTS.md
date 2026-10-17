@@ -25,6 +25,7 @@ skills/<bucket>/README.md        # GENERATED
 skills/<bucket>/<skill>/SKILL.md # plus optional references/, assets/, scripts/
 templates/skill/SKILL.md.tmpl    # .tmpl so npx skills doesn't find it as a real skill
 scripts/skills.mjs               # new-bucket, new-skill, sync, validate (Node ≥18, no deps)
+tests/engine/                    # node --test suites for the brain engine
 .github/workflows/validate.yml   # CI runs validate on every push and PR
 ```
 
@@ -60,8 +61,8 @@ claude plugin validate .           # when the claude CLI is available
 
 ## Where skills read and write
 
-Every skill works only inside these three directories at the project root it runs in. Each SKILL.md must say
-which ones it uses and explain the convention itself, because skills are installed on their own.
+The `engineering` and `niche` skills work only inside three directories at the project root they run in. Each
+SKILL.md must say which ones it uses and explain the convention itself, because skills are installed on their own.
 
 | Directory | Git | Purpose |
 |---|---|---|
@@ -72,17 +73,26 @@ which ones it uses and explain the convention itself, because skills are install
 Ideas move up the chain as they mature: `.scratchpad/` → `.mynotes/` → `docs/`. A skill that writes to
 `.mynotes/` or `.scratchpad/` makes sure they're gitignored first.
 
+The `general-productivity` skills are the exception. They work inside the user's **brain folder** (an Obsidian
+vault, a Claude Code directory and a private git repo) and in a project repo's `.brain/` link. They define
+their own layout (see the `brain-notes` skill). The engine is `skills/general-productivity/brain-setup/engine/` (zero-dependency Node ≥ 18, needs
+`rg` and GNU `sed`). It ships inside the skill so `npx skills` installs it; `brain install` copies it to
+`~/.local/share/rumblejack-brain/` and links `~/.local/bin/brain`. Never add a root `bin/` (validate refuses it).
+Tests: `node --test tests/engine/*.test.mjs`. Usage and design notes live in `docs/second-brain/`.
+
 ## Skills
 
-- **`general-productivity/adhd`**: an ADHD-friendly personal organizer. It captures, prioritizes and tracks
-  tasks in `.mynotes/` and hands the chosen task to `.scratchpad/focus.md`. It organizes and **never does
-  the tasks itself**. Every reply is short, shows at most 3 priorities and ends with one `**Next:**` action.
+- **`general-productivity/*`**: the second brain, built on the FLAP method (fleeting, literature, atomic,
+  project). They organize and **never do the user's tasks**. Every reply is short, shows at most 3 priorities
+  and ends with one `**Next:**` action. Core loop: `capture`, `route`, `plan`, `daily-review`. Also
+  `brain-setup`, `brain-notes` (conventions), `task-graph`, `overwhelm`, `routines`, `reminders`, `backlog`.
+  The retired `adhd` skill's lessons are in `docs/second-brain/adhd-lessons.md`.
 - **`niche/setup-vps`**: sets up a VPS over SSH as root. It generates an idempotent per-step script in
   `.scratchpad/setup-vps/<host>/` and runs it only on request, one confirmed step at a time. It adapts to
   the OS. It covers users and sudo, the `deploy` service user (rootless Podman for all containers), the
   shared `/srv` and `/shared` group dirs, the firewall, fail2ban, optional Traefik and optional SSH
   hardening, and records the result in `docs/vps/<host>.md`.
-- **`app-development/*`**: three playbooks for an Expo React Native app. They are written in ASD-STE100
+- **`engineering/*`**: three playbooks for an Expo React Native app. They are written in ASD-STE100
   Simplified Technical English, package patterns and decisions (not tutorials), and each works alone. Each
   keeps notes in `.scratchpad/<skill>/` and a decision record in `docs/app/`; app source code is the work
   product and stays in the app tree.

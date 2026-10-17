@@ -9,15 +9,25 @@ files.
 <!-- catalog:start -->
 | Bucket | Use case | Skills | Claude Code plugin |
 |---|---|---|---|
-| [`app-development`](skills/app-development) | React Native app development with Expo: server state, client state, and over-the-air release playbooks | `client-state-setup`, `ota-playbook`, `server-api-setup` | ✓ `/rumblejack-skills:…` |
-| [`general-productivity`](skills/general-productivity) | Personal organization and planning: capture, prioritize and track what to do without losing focus | `adhd` | ✓ `/rumblejack-skills:…` |
+| [`engineering`](skills/engineering) | Backend and app engineering playbooks: React Native with Expo (server state, client state, over-the-air release) | `client-state-setup`, `ota-playbook`, `server-api-setup` | ✓ `/rumblejack-skills:…` |
+| [`general-productivity`](skills/general-productivity) | Second brain for Claude Code and Obsidian (FLAP method): capture, route, plan the day, projects, routines, reminders, knowledge notes. Works from the plugin or npx skills; brain-setup installs the engine | `backlog`, `brain-notes`, `brain-setup`, `capture`, `daily-review`, `overwhelm`, `plan`, `playbook`, `project-sync`, `refine`, `reminders`, `route`, `routines`, `task-graph` | ✓ `/rumblejack-skills:…` |
 | [`in-progress`](skills/in-progress) | Beta skills still being tested. Not shipped in the Claude Code plugin; install individually with npx skills | _none yet_ | npx only |
 | [`niche`](skills/niche) | Specialized, opinionated setups for specific tools and environments | `setup-vps` | ✓ `/rumblejack-skills:…` |
 <!-- catalog:end -->
 
+## Second brain (`general-productivity`)
+
+A second brain for Claude Code and Obsidian, built on the FLAP method (fleeting, literature, atomic, project).
+One folder is an Obsidian vault, a Claude Code directory and a private git repo. It works from the Claude Code
+plugin or from `npx skills`: the engine ships inside the `brain-setup` skill. It needs Node 18 or newer,
+`rg` (ripgrep) and GNU `sed`.
+
+After installing, ask Claude to set up your brain (or run `/rumblejack-skills:brain-setup`). Then work from
+the brain folder. Read the [usage guide](docs/second-brain/usage.md).
+
 ## Install
 
-Pick **one** route per machine. If you install both, every skill shows up twice.
+Pick **one** route per machine. If you install both, every skill shows up twice. For the second brain, install the whole `general-productivity` bucket (the skills call each other).
 
 ### Claude Code plugin (every shipped bucket)
 
