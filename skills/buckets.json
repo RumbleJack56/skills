@@ -14,5 +14,9 @@
   "engineering": {
     "description": "Backend and app engineering playbooks: React Native with Expo (server state, client state, over-the-air release)",
     "shipped": true
+  },
+  "content": {
+    "description": "Writing and reviewing content: short-form video scripts, hooks and social posts",
+    "shipped": true
   }
 }
