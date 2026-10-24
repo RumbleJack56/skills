@@ -5,14 +5,24 @@
   },
   "metadata": {
     "description": "RumbleJack56's agent skills, one plugin per bucket.",
-    "version": "0.3.0"
+    "version": "0.4.0"
   },
   "plugins": [
+    {
+      "name": "content",
+      "source": "./",
+      "description": "Writing and reviewing content: short-form video scripts, hooks and social posts",
+      "version": "0.4.0",
+      "strict": false,
+      "skills": [
+        "./skills/content/content-principles"
+      ]
+    },
     {
       "name": "engineering",
       "source": "./",
       "description": "Backend and app engineering playbooks: React Native with Expo (server state, client state, over-the-air release)",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "strict": false,
       "skills": [
         "./skills/engineering/client-state-setup",
@@ -24,7 +34,7 @@
       "name": "general-productivity",
       "source": "./",
       "description": "Second brain for Claude Code and Obsidian (FLAP method): capture, route, plan the day, projects, routines, reminders, knowledge notes. Works from the plugin or npx skills; brain-setup installs the engine",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "strict": false,
       "skills": [
         "./skills/general-productivity/backlog",
@@ -47,7 +57,7 @@
       "name": "niche",
       "source": "./",
       "description": "Specialized, opinionated setups for specific tools and environments",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "strict": false,
       "skills": [
         "./skills/niche/setup-vps"
