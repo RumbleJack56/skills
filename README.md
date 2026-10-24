@@ -9,6 +9,7 @@ files.
 <!-- catalog:start -->
 | Bucket | Use case | Skills | Claude Code plugin |
 |---|---|---|---|
+| [`content`](skills/content) | Writing and reviewing content: short-form video scripts, hooks and social posts | `content-principles` | ✓ `/content:…` |
 | [`engineering`](skills/engineering) | Backend and app engineering playbooks: React Native with Expo (server state, client state, over-the-air release) | `client-state-setup`, `ota-playbook`, `server-api-setup` | ✓ `/engineering:…` |
 | [`general-productivity`](skills/general-productivity) | Second brain for Claude Code and Obsidian (FLAP method): capture, route, plan the day, projects, routines, reminders, knowledge notes. Works from the plugin or npx skills; brain-setup installs the engine | `backlog`, `brain-notes`, `brain-setup`, `capture`, `daily-review`, `overwhelm`, `plan`, `playbook`, `project-sync`, `refine`, `reminders`, `route`, `routines`, `task-graph` | ✓ `/general-productivity:…` |
 | [`in-progress`](skills/in-progress) | Beta skills still being tested. Not shipped in the Claude Code plugin; install individually with npx skills | _none yet_ | npx only |
@@ -104,3 +105,6 @@ A skill makes sure `.scratchpad/` and `.mynotes/` are gitignored before writing 
 I'm thankful to [Matt Pocock](https://github.com/mattpocock), [coleam00](https://github.com/coleam00) and
 claudecodehq for the inspiration behind several of these skills. These are of course tuned to how I prefer
 to use them, but their implementations were a great support. I will continue to improve this.
+
+`content/content-principles` is [Remy Gaskell](https://github.com/aiwithremy)'s
+[content-principles](https://github.com/aiwithremy/content-principles) skill, included unchanged.

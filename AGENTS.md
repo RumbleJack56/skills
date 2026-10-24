@@ -82,6 +82,8 @@ Tests: `node --test tests/engine/*.test.mjs`. Usage and design notes live in `do
 
 ## Skills
 
+- **`content/content-principles`**: copied unchanged from `aiwithremy/content-principles` (credited in the
+  README). Don't rewrite it to house style; re-copy from upstream to update it.
 - **`general-productivity/*`**: the second brain, built on the FLAP method (fleeting, literature, atomic,
   project). They organize and **never do the user's tasks**. Every reply is short, shows at most 3 priorities
   and ends with one `**Next:**` action. Core loop: `capture`, `route`, `plan`, `daily-review`. Also
