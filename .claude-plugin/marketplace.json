@@ -32,6 +32,16 @@
       ]
     },
     {
+      "name": "frontend",
+      "source": "./",
+      "description": "Frontend design: art direction and anti-slop styling for websites and app screens",
+      "version": "0.5.0",
+      "strict": false,
+      "skills": [
+        "./skills/frontend/design-taste-frontend"
+      ]
+    },
+    {
       "name": "general-productivity",
       "source": "./",
       "description": "Second brain for Claude Code and Obsidian (FLAP method): capture, route, plan the day, projects, routines, reminders, knowledge notes. Works from the plugin or npx skills; brain-setup installs the engine",

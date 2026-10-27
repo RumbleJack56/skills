@@ -228,7 +228,9 @@ function validate() {
       else if (s.fm.description.length > 1024) errors.push(`${sw}: description exceeds 1024 chars`);
       const body = fs.readFileSync(s.file, "utf8");
       if (/TODO/.test(body)) errors.push(`${sw}: SKILL.md still contains TODO placeholders`);
-      if (body.split("\n").length > 500) errors.push(`${sw}: SKILL.md is over 500 lines; move material to references/`);
+      // A copied skill (UPSTREAM file) stays as published, so the house line limit does not apply.
+      const copied = fs.existsSync(path.join(path.dirname(s.file), "UPSTREAM"));
+      if (!copied && body.split("\n").length > 500) errors.push(`${sw}: SKILL.md is over 500 lines; move material to references/`);
       for (const m of body.matchAll(/\]\((references\/[^)#\s]+|assets\/[^)#\s]+)\)/g))
         if (!fs.existsSync(path.join(path.dirname(s.file), m[1]))) errors.push(`${sw}: broken link ${m[1]}`);
 

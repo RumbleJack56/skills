@@ -110,3 +110,15 @@ Tests: `node --test tests/engine/*.test.mjs`. Usage and design notes live in `do
     for drafts across routes, shared UI state and preferences; records `docs/app/client-state.md`.
   - **`ota-playbook`**: EAS Build and EAS Update setup, release procedures, and server-side minimum-version
     enforcement (HTTP 426); records `docs/app/release.md`. It asks before any command that reaches users.
+- **`frontend/design-taste-frontend`**: tasteskill v2, copied unchanged from `Leonxlnx/taste-skill` (MIT,
+  credited in the README). Art direction for web pages and app screens: Node scripts deal a direction from
+  a JSON library, lint the source, and inspect the page in headless Chrome. It keeps its own working files
+  in `.taste-skill/` in the project and a draw history in `~/.taste-skill/history.json`, outside the
+  three-directory convention.
+
+### Copied skills
+
+A skill copied from another repo stays byte-identical to upstream, so it can be re-copied to update it.
+Keep the upstream `LICENSE` next to it when upstream has one. An `UPSTREAM` file (one line: the source URL
+at the copied commit) records where it came from, and `validate` skips the 500-line limit for a skill that
+has one. To update, re-copy the folder from upstream and change the commit in `UPSTREAM`.

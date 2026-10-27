@@ -18,5 +18,9 @@
   "content": {
     "description": "Writing and reviewing content: short-form video scripts, hooks and social posts",
     "shipped": true
+  },
+  "frontend": {
+    "description": "Frontend design: art direction and anti-slop styling for websites and app screens",
+    "shipped": true
   }
 }

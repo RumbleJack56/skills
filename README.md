@@ -11,6 +11,7 @@ files.
 |---|---|---|---|
 | [`content`](skills/content) | Writing and reviewing content: short-form video scripts, hooks and social posts | `content-principles` | ✓ `/content:…` |
 | [`engineering`](skills/engineering) | Engineering playbooks: a lazy senior-dev discipline for any code change, plus React Native with Expo (server state, client state, over-the-air release) | `client-state-setup`, `ota-playbook`, `senior-dev`, `server-api-setup` | ✓ `/engineering:…` |
+| [`frontend`](skills/frontend) | Frontend design: art direction and anti-slop styling for websites and app screens | `design-taste-frontend` | ✓ `/frontend:…` |
 | [`general-productivity`](skills/general-productivity) | Second brain for Claude Code and Obsidian (FLAP method): capture, route, plan the day, projects, routines, reminders, knowledge notes. Works from the plugin or npx skills; brain-setup installs the engine | `backlog`, `brain-notes`, `brain-setup`, `capture`, `daily-review`, `overwhelm`, `plan`, `playbook`, `project-sync`, `refine`, `reminders`, `route`, `routines`, `task-graph` | ✓ `/general-productivity:…` |
 | [`in-progress`](skills/in-progress) | Beta skills still being tested. Not shipped in the Claude Code plugin; install individually with npx skills | _none yet_ | npx only |
 | [`niche`](skills/niche) | Specialized, opinionated setups for specific tools and environments | `setup-vps` | ✓ `/niche:…` |
@@ -89,6 +90,8 @@ Examples:
   "what should I work on next?", "need to call the dentist".
 - **`senior-dev`**: "add a CSV export to the users page", "uploads land in the wrong folder, fix it", or
   `/engineering:senior-dev` before any code change.
+- **`design-taste-frontend`**: "build a landing page for my bakery", "this page looks AI-made, make it look
+  designed". Its scripts need Node 22+ and Chrome, Edge or Chromium.
 - **`setup-vps`**: "set up my new VPS at 203.0.113.10 for alice (sudo) and bob, with Traefik in front".
 
 The `engineering` and `niche` skills only read and write three folders in the project they run in (the second
@@ -110,3 +113,6 @@ to use them, but their implementations were a great support. I will continue to 
 
 `content/content-principles` is [Remy Gaskell](https://github.com/aiwithremy)'s
 [content-principles](https://github.com/aiwithremy/content-principles) skill, included unchanged.
+
+`frontend/design-taste-frontend` is [Leonxlnx](https://github.com/Leonxlnx)'s
+[taste-skill](https://github.com/Leonxlnx/taste-skill) (tasteskill v2), included unchanged under its MIT licence.
