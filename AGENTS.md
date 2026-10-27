@@ -93,10 +93,17 @@ Tests: `node --test tests/engine/*.test.mjs`. Usage and design notes live in `do
   the OS. It covers users and sudo, the `deploy` service user (rootless Podman for all containers), the
   shared `/srv` and `/shared` group dirs, the firewall, fail2ban, optional Traefik and optional SSH
   hardening, and records the result in `docs/vps/<host>.md`.
-- **`engineering/*`**: three playbooks for an Expo React Native app. They are written in ASD-STE100
-  Simplified Technical English, package patterns and decisions (not tutorials), and each works alone. Each
-  keeps notes in `.scratchpad/<skill>/` and a decision record in `docs/app/`; app source code is the work
-  product and stays in the app tree.
+- **`engineering/*`**: written in ASD-STE100 Simplified Technical English, they package patterns and
+  decisions (not tutorials), and each works alone. App source code is the work product and stays in the
+  app tree.
+  - **`senior-dev`**: a lazy senior-developer discipline for any code change in any stack. It maps the reach
+    and blast radius first, then takes the first option that fully works (skip, reuse, stdlib, installed
+    dependency, one line, minimum code). It also covers root-cause bug tracing, behavior-preserving
+    simplification, review, git hygiene (`references/git.md`) and a terse reply that ends with what was
+    skipped and the risk. Only throwaway files go in `.scratchpad/senior-dev/`; it writes no `docs/` record.
+
+  The three playbooks below are for an Expo React Native app. Each keeps notes in `.scratchpad/<skill>/`
+  and a decision record in `docs/app/`.
   - **`server-api-setup`**: server state with Supabase, Zod and TanStack Query. One feature module for each
     resource (`schema.ts`, `api.ts`, `queries.ts`, `mutations.ts`); records `docs/app/server-state.md`.
   - **`client-state-setup`**: client state with Zustand. It classifies state first and makes stores only

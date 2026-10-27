@@ -12,7 +12,7 @@
     "shipped": true
   },
   "engineering": {
-    "description": "Backend and app engineering playbooks: React Native with Expo (server state, client state, over-the-air release)",
+    "description": "Engineering playbooks: a lazy senior-dev discipline for any code change, plus React Native with Expo (server state, client state, over-the-air release)",
     "shipped": true
   },
   "content": {

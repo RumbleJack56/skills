@@ -10,7 +10,7 @@ files.
 | Bucket | Use case | Skills | Claude Code plugin |
 |---|---|---|---|
 | [`content`](skills/content) | Writing and reviewing content: short-form video scripts, hooks and social posts | `content-principles` | ✓ `/content:…` |
-| [`engineering`](skills/engineering) | Backend and app engineering playbooks: React Native with Expo (server state, client state, over-the-air release) | `client-state-setup`, `ota-playbook`, `server-api-setup` | ✓ `/engineering:…` |
+| [`engineering`](skills/engineering) | Engineering playbooks: a lazy senior-dev discipline for any code change, plus React Native with Expo (server state, client state, over-the-air release) | `client-state-setup`, `ota-playbook`, `senior-dev`, `server-api-setup` | ✓ `/engineering:…` |
 | [`general-productivity`](skills/general-productivity) | Second brain for Claude Code and Obsidian (FLAP method): capture, route, plan the day, projects, routines, reminders, knowledge notes. Works from the plugin or npx skills; brain-setup installs the engine | `backlog`, `brain-notes`, `brain-setup`, `capture`, `daily-review`, `overwhelm`, `plan`, `playbook`, `project-sync`, `refine`, `reminders`, `route`, `routines`, `task-graph` | ✓ `/general-productivity:…` |
 | [`in-progress`](skills/in-progress) | Beta skills still being tested. Not shipped in the Claude Code plugin; install individually with npx skills | _none yet_ | npx only |
 | [`niche`](skills/niche) | Specialized, opinionated setups for specific tools and environments | `setup-vps` | ✓ `/niche:…` |
@@ -87,6 +87,8 @@ Examples:
 
 - **`overwhelm`, `plan`, `capture`** (second brain): "I'm overwhelmed, here's everything I need to do: …",
   "what should I work on next?", "need to call the dentist".
+- **`senior-dev`**: "add a CSV export to the users page", "uploads land in the wrong folder, fix it", or
+  `/engineering:senior-dev` before any code change.
 - **`setup-vps`**: "set up my new VPS at 203.0.113.10 for alice (sudo) and bob, with Traefik in front".
 
 The `engineering` and `niche` skills only read and write three folders in the project they run in (the second
